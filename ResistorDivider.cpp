@@ -117,15 +117,30 @@ float read(){
 /// @brief Calculates input voltage based on outputVoltage, R1 and R2 values
 /// @param outputVoltage Output voltage from the divider
 float ResistorDivider::calculateInputVoltage(float outputVoltage){
-    float inputVoltage = (outputVoltage * (float)(this->R1 + this->R2)) / ((float)this->R2);
+    float inputVoltage = (outputVoltage * (this->R1 + this->R2)) / this->R2;
     return inputVoltage;
 }
 
 /// @brief Calculates output voltage based on inputVoltage, R1 and R2 values
 /// @param inputVoltage Divider input voltage
 float ResistorDivider::calculateOutputVoltage(float inputVoltage){
-    float outputVoltage = (inputVoltage * ((float)this->R2)) / ((float)(this->R1 + this->R2));
+    float outputVoltage = (inputVoltage * this->R2) / (this->R1 + this->R2);
     return outputVoltage;
 }
 
+/// @brief Calculates R1 value based on input voltage, output voltage and R2 value
+/// @param inputVoltage Divider input voltage
+/// @param outputVoltage Divider output voltage
+float ResistorDivider::calculateR1(float inputVoltage, float outputVoltage){
+    float r1 = (this->R2 * (inputVoltage - outputVoltage)) / outputVoltage;
+    return r1;
+}
+
+/// @brief Calculates R2 value based on input voltage, output voltage and R1 value
+/// @param inputVoltage Divider input voltage
+/// @param outputVoltage Divider output voltage
+float ResistorDivider::calculateR2(float inputVoltage, float outputVoltage){
+    float r2 = (outputVoltage * this->R1) / (inputVoltage - outputVoltage);
+    return r2;
+}
 
