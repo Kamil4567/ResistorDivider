@@ -59,7 +59,7 @@ void ResistorDivider::setADCMaxValue(int adcMaxValue){
 /// @brief Set the ADC max voltage
 /// If the value is zero, the value will not be changed
 /// @param adcMaxVoltage Max voltage of ADC on selected pin
-void ResistorDivider::setADCMaxVoltage(int adcMaxVoltage){
+void ResistorDivider::setADCMaxVoltage(float adcMaxVoltage){
     if(adcMaxVoltage != 0) this->adcMaxVoltage = adcMaxVoltage;
 }
 
