@@ -23,6 +23,7 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
     this->R2 = resistor2;
     this->pinNumber = pinNumber;
     this->adcMaxValue = adcMaxValue;
+    this->adcMaxVoltage = adcMaxVoltage;
 }
 
 ///////////////////////////////
