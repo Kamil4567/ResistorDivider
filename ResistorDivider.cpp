@@ -97,14 +97,14 @@ float ResistorDivider::getADCMaxVoltage(){
 ////////////////////////////////////////
 
 /// @brief Returns voltage on ADC input pin
-float readADC(){
+float ResistorDivider::readADC(){
     int adcReading = analogRead(this->pinNumber);
     float adcVoltage = ((float)adcReading * this->adcMaxVoltage) / ((float)this->adcMaxValue);
     return adcVoltage;
 }
 
 /// @brief Returns voltage at the resistor divider input
-float read(){
+float ResistorDivider::read(){
     float outVoltage = this->readADC();
     float inVoltage = this->calculateInputVoltage(outVoltage);
     return inVoltage;
