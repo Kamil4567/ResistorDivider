@@ -11,7 +11,7 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2){
     this->R2 = resistor2;
 }
 
-/// @brief Initialize with all parametrs
+/// @brief Initialize with all parametrs excluding calibration values
 /// @param resistor1 Value of R1 resistor in ohms
 /// @param resistor2 Value of R2 resistor in ohms
 /// @param pinNumber Pin where divider output is connected(pin needs to be able to read analog signal)

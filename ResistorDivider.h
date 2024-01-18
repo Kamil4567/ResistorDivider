@@ -43,7 +43,7 @@ class ResistorDivider{
         ResistorDivider(); // don't provide any values in the constructor, set them later with setters
         ResistorDivider(float resistor1, float resistor2); // specify only the resistor values(when using lib only for calculations)
         ResistorDivider(float resistor1, float resistor2, 
-                        int pinNumber, int adcMaxValue, float adcMaxVoltage); // pass all parametrs
+                        int pinNumber, int adcMaxValue, float adcMaxVoltage); // pass all parameters excluding calibration values
         ResistorDivider(float resistor1, float resistor2, 
                         int pinNumber, int adcMaxValue, 
                         float adcMaxVoltage, float adcVoltageMutiplier, 
