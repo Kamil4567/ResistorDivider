@@ -37,7 +37,7 @@ class ResistorDivider{
         int pinNumber = -1; // analog input pin number
         int adcMaxValue = 1024; // max value of ADC reading
         float adcMaxVoltage = 5.0; // max ADC voltage
-        float adcVoltageMutiplier = 1; // ADC voltage will be multiplied by this 
+        float adcVoltageMultiplier = 1; // ADC voltage will be multiplied by this 
         float adcVoltageOffset = 0; // and this value will be added
     public:
         ResistorDivider(); // don't provide any values in the constructor, set them later with setters
