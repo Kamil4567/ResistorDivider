@@ -88,7 +88,7 @@ int ResistorDivider::getADCMaxValue(){
 }
 
 /// @brief Get ADC max voltage
-int ResistorDivider::getADCMaxVoltage(){
+float ResistorDivider::getADCMaxVoltage(){
     return this->adcMaxVoltage;
 }
 
