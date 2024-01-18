@@ -37,10 +37,17 @@ class ResistorDivider{
         int pinNumber = -1; // analog input pin number
         int adcMaxValue = 1024; // max value of ADC reading
         float adcMaxVoltage = 5.0; // max ADC voltage
+        float adcVoltageMutiplier = 1; // ADC voltage will be multiplied by this 
+        float adcVoltageOffset = 0; // and this value will be added
     public:
         ResistorDivider(); // don't provide any values in the constructor, set them later with setters
         ResistorDivider(float resistor1, float resistor2); // specify only the resistor values(when using lib only for calculations)
-        ResistorDivider(float resistor1, float resistor2, int pinNumber, int adcMaxValue, float adcMaxVoltage); // pass all parametrs
+        ResistorDivider(float resistor1, float resistor2, 
+                        int pinNumber, int adcMaxValue, float adcMaxVoltage); // pass all parametrs
+        ResistorDivider(float resistor1, float resistor2, 
+                        int pinNumber, int adcMaxValue, 
+                        float adcMaxVoltage, float adcVoltageMutiplier, 
+                        float adcVoltageOffset); // pass all parametrs
 
         // SETTERS
         void setR1(float value); // set new R1 value
@@ -48,12 +55,16 @@ class ResistorDivider{
         void setPin(int pinNumber); // set pin number
         void setADCMaxValue(int adcMaxValue); // set adc max value
         void setADCMaxVoltage(float adcMaxVoltage); // set adc max voltage
+        void setADCMultiplier(float adcVoltageMutiplier); // set adc voltage multiplier
+        void setADCOffset(float adcVoltageOffset); // set adc voltage offset
         // GETTERS
         float getR1(); // get R1 value
         float getR2(); // get R2 value
         int getPin(); // get pin number
         int getADCMaxValue(); // get ADC max value
         float getADCMaxVoltage(); // get ADC max voltage
+        float getADCMultiplier(); // get ADC voltage multiplier
+        float getADCOffset(); //get ADC voltage offset
 
         // VOLTAGE READING
         float readADC(); // read voltage on ADC input(not divider input)

@@ -26,6 +26,26 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
     this->adcMaxVoltage = adcMaxVoltage;
 }
 
+/// @brief Initialize with all parametrs
+/// @param resistor1 Value of R1 resistor in ohms
+/// @param resistor2 Value of R2 resistor in ohms
+/// @param pinNumber Pin where divider output is connected(pin needs to be able to read analog signal)
+/// @param adcMaxValue Max value of ADC reading from selected pin
+/// @param adcMaxVoltage Max ADC voltage on selected pin
+/// @param adcVoltageMultiplier Voltage measurements are multiplied by this value
+/// @param adcVoltageOffset This value will be added to every measurement
+ResistorDivider::ResistorDivider(float resistor1, float resistor2, 
+                                 int pinNumber, int adcMaxValue, float adcMaxVoltage, 
+                                 float adcVoltageMultiplier, float adcVoltageOffset){
+    this->R1 = resistor1;
+    this->R2 = resistor2;
+    this->pinNumber = pinNumber;
+    this->adcMaxValue = adcMaxValue;
+    this->adcMaxVoltage = adcMaxVoltage;
+    this->adcVoltageMultiplier = adcVoltageMultiplier;
+    this->adcVoltageOffset = adcVoltageOffset;
+}
+
 ///////////////////////////////
 //          SETTERS          //
 ///////////////////////////////
@@ -64,6 +84,19 @@ void ResistorDivider::setADCMaxVoltage(float adcMaxVoltage){
     if(adcMaxVoltage != 0) this->adcMaxVoltage = adcMaxVoltage;
 }
 
+/// @brief Set ADC voltage multiplier
+/// @param adcVoltageMultiplier Value by which every measurement is multiplied
+void ResistorDivider::setADCMultiplier(float adcVoltageMultiplier){
+    this->adcVoltageMultiplier = adcVoltageMultiplier;
+}
+
+/// @brief Set ADC voltage offset
+/// @param adcVoltageOffset Value added to every measurement
+void ResistorDivider::setADCOffset(float adcVoltageOffset){
+    this->adcVoltageOffset  = adcVoltageOffset;
+}
+
+
 ///////////////////////////////
 //          GETTERS          //
 ///////////////////////////////
@@ -93,14 +126,27 @@ float ResistorDivider::getADCMaxVoltage(){
     return this->adcMaxVoltage;
 }
 
+/// @brief Get ADC voltage multiplier
+float ResistorDivider::getADCMultiplier(){
+    return this->adcVoltageMultiplier;
+}
+
+/// @brief Get ADC voltage offset
+float ResistorDivider::getADCOffset(){
+    return this->adcVoltageOffset;
+}
+
 ////////////////////////////////////////
 //          VOLTAGE READINGS          //
 ////////////////////////////////////////
 
 /// @brief Returns voltage on ADC input pin
+/// Before returning the measurement result, voltage multiplier and offset are applied
 float ResistorDivider::readADC(){
     int adcReading = analogRead(this->pinNumber);
     float adcVoltage = ((float)adcReading * this->adcMaxVoltage) / ((float)this->adcMaxValue);
+    adcVoltage *= this->adcVoltageMultiplier;
+    adcVoltage += this->adcVoltageOffset;
     return adcVoltage;
 }
 
