@@ -26,7 +26,7 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
     this->pinNumber = pinNumber;
     this->adcMaxValue = adcMaxValue;
     this->adcMaxVoltage = adcMaxVoltage;
-    thos->sampleCount = sampleCount;
+    this->sampleCount = sampleCount;
 }
 
 /// @brief Initialize with all parametrs
@@ -40,7 +40,7 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
 /// @param adcVoltageOffset This value will be added to every measurement
 ResistorDivider::ResistorDivider(float resistor1, float resistor2, 
                                  int pinNumber, int adcMaxValue, 
-                                 float adcMaxVoltage, int sampleCount
+                                 float adcMaxVoltage, int sampleCount,
                                  float adcVoltageMultiplier, float adcVoltageOffset){
     this->R1 = resistor1;
     this->R2 = resistor2;
