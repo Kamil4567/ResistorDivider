@@ -17,13 +17,16 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2){
 /// @param pinNumber Pin where divider output is connected(pin needs to be able to read analog signal)
 /// @param adcMaxValue Max value of ADC reading from selected pin
 /// @param adcMaxVoltage Max ADC voltage on selected pin
+/// @param sampleCount Amount of samples from ADC for average calculation
 ResistorDivider::ResistorDivider(float resistor1, float resistor2, 
-                                 int pinNumber, int adcMaxValue, float adcMaxVoltage){
+                                 int pinNumber, int adcMaxValue, 
+                                 float adcMaxVoltage, int sampleCount){
     this->R1 = resistor1;
     this->R2 = resistor2;
     this->pinNumber = pinNumber;
     this->adcMaxValue = adcMaxValue;
     this->adcMaxVoltage = adcMaxVoltage;
+    thos->sampleCount = sampleCount;
 }
 
 /// @brief Initialize with all parametrs
@@ -32,16 +35,19 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
 /// @param pinNumber Pin where divider output is connected(pin needs to be able to read analog signal)
 /// @param adcMaxValue Max value of ADC reading from selected pin
 /// @param adcMaxVoltage Max ADC voltage on selected pin
+/// @param sampleCount Amount of samples from ADC for average calculation
 /// @param adcVoltageMultiplier Voltage measurements are multiplied by this value
 /// @param adcVoltageOffset This value will be added to every measurement
 ResistorDivider::ResistorDivider(float resistor1, float resistor2, 
-                                 int pinNumber, int adcMaxValue, float adcMaxVoltage, 
+                                 int pinNumber, int adcMaxValue, 
+                                 float adcMaxVoltage, int sampleCount
                                  float adcVoltageMultiplier, float adcVoltageOffset){
     this->R1 = resistor1;
     this->R2 = resistor2;
     this->pinNumber = pinNumber;
     this->adcMaxValue = adcMaxValue;
     this->adcMaxVoltage = adcMaxVoltage;
+    this->sampleCount = sampleCount
     this->adcVoltageMultiplier = adcVoltageMultiplier;
     this->adcVoltageOffset = adcVoltageOffset;
 }
@@ -96,6 +102,12 @@ void ResistorDivider::setADCOffset(float adcVoltageOffset){
     this->adcVoltageOffset  = adcVoltageOffset;
 }
 
+/// @brief Set sample count
+/// @param sampleCount Amount of samples when calculating average
+void ResistorDivider::setSampleCount(int sampleCount){
+    this->sampleCount = sampleCount;
+}
+
 
 ///////////////////////////////
 //          GETTERS          //
@@ -136,6 +148,11 @@ float ResistorDivider::getADCOffset(){
     return this->adcVoltageOffset;
 }
 
+/// @brief Get sample count
+int ResistorDivider::getSampleCount(){
+    return this->sampleCount;
+}
+
 ////////////////////////////////////////
 //          VOLTAGE READINGS          //
 ////////////////////////////////////////
@@ -143,7 +160,11 @@ float ResistorDivider::getADCOffset(){
 /// @brief Returns voltage on ADC input pin
 /// Before returning the measurement result, voltage multiplier and offset are applied
 float ResistorDivider::readADC(){
-    int adcReading = analogRead(this->pinNumber);
+    unsigned long readingSum = 0;
+    for(int i = 0; i < this->sampleCount; i++){
+        readingSum += analogRead(this->pinNumber);
+    }
+    int adcReading = readingSum / this->sampleCount;
     float adcVoltage = ((float)adcReading * this->adcMaxVoltage) / ((float)this->adcMaxValue);
     adcVoltage *= this->adcVoltageMultiplier;
     adcVoltage += this->adcVoltageOffset;

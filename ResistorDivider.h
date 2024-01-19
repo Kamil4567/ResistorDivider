@@ -39,15 +39,17 @@ class ResistorDivider{
         float adcMaxVoltage = 5.0; // max ADC voltage
         float adcVoltageMultiplier = 1; // ADC voltage will be multiplied by this 
         float adcVoltageOffset = 0; // and this value will be added
+        int sampleCount = 100; // when reading voltage, average of n values is calculated
     public:
         ResistorDivider(); // don't provide any values in the constructor, set them later with setters
         ResistorDivider(float resistor1, float resistor2); // specify only the resistor values(when using lib only for calculations)
         ResistorDivider(float resistor1, float resistor2, 
-                        int pinNumber, int adcMaxValue, float adcMaxVoltage); // pass all parameters excluding calibration values
+                        int pinNumber, int adcMaxValue, 
+                        float adcMaxVoltage, int sampleCount); // pass all parameters excluding calibration values
         ResistorDivider(float resistor1, float resistor2, 
                         int pinNumber, int adcMaxValue, 
-                        float adcMaxVoltage, float adcVoltageMutiplier, 
-                        float adcVoltageOffset); // pass all parametrs
+                        float adcMaxVoltage, int sampleCount,
+                        float adcVoltageMutiplier,  float adcVoltageOffset); // pass all parametrs
 
         // SETTERS
         void setR1(float value); // set new R1 value
@@ -57,6 +59,7 @@ class ResistorDivider{
         void setADCMaxVoltage(float adcMaxVoltage); // set adc max voltage
         void setADCMultiplier(float adcVoltageMutiplier); // set adc voltage multiplier
         void setADCOffset(float adcVoltageOffset); // set adc voltage offset
+        void setSampleCount(int sampleCount); // set sample count
         // GETTERS
         float getR1(); // get R1 value
         float getR2(); // get R2 value
@@ -64,7 +67,8 @@ class ResistorDivider{
         int getADCMaxValue(); // get ADC max value
         float getADCMaxVoltage(); // get ADC max voltage
         float getADCMultiplier(); // get ADC voltage multiplier
-        float getADCOffset(); //get ADC voltage offset
+        float getADCOffset(); // get ADC voltage offset
+        int getSampleCount(); // get sample count
 
         // VOLTAGE READING
         float readADC(); // read voltage on ADC input(not divider input)
