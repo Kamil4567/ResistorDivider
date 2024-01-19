@@ -47,7 +47,7 @@ ResistorDivider::ResistorDivider(float resistor1, float resistor2,
     this->pinNumber = pinNumber;
     this->adcMaxValue = adcMaxValue;
     this->adcMaxVoltage = adcMaxVoltage;
-    this->sampleCount = sampleCount
+    this->sampleCount = sampleCount;
     this->adcVoltageMultiplier = adcVoltageMultiplier;
     this->adcVoltageOffset = adcVoltageOffset;
 }
